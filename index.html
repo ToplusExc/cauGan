@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz App (Profesional)</title>
+    <title>Quiz App Profesional</title>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2705194864398598"
      crossorigin="anonymous"></script>
@@ -145,11 +145,24 @@
         .modal-btn:hover {
             background-color: #e67e22;
         }
+        .settings-container {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        #music-selector {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+        }
     </style>
 </head>
 <body>
 
-<audio id="background-music" src="background_music.mp3" loop></audio>
+<audio id="background-music" loop></audio>
     
 <div class="container">
     <h1>Kuis Seru</h1>
@@ -165,9 +178,17 @@
             </div>
         <div class="monetization-buttons">
             <button id="refill-btn" class="monetization-btn">Refill Energi Gratis</button>
-            <button id="music-btn" class="monetization-btn">Putar/Hentikan Musik</button>
             <button id="invite-btn" class="monetization-btn">Ajak Teman</button>
             <a href="mailto:emailanda@gmail.com?subject=Donasi untuk Kuis&body=Halo, saya ingin berdonasi." class="monetization-btn" style="text-decoration: none;">Donasi via Email</a>
+        </div>
+        <div class="settings-container">
+            <h3>Pengaturan</h3>
+            <select id="music-selector">
+                <option value="music1.mp3">Musik 1</option>
+                <option value="music2.mp3">Musik 2</option>
+                <option value="music3.mp3">Musik 3</option>
+            </select>
+            <button id="music-btn" class="monetization-btn" style="background-color: #007bff; color: white;">Putar Musik</button>
         </div>
     </div>
     
@@ -197,11 +218,12 @@
     const scoreDisplay = document.getElementById('score-display');
     const energyDisplay = document.getElementById('energy-display');
     const rankDisplay = document.getElementById('rank-display');
+    const musicSelector = document.getElementById('music-selector');
     const musicBtn = document.getElementById('music-btn');
     const backgroundMusic = document.getElementById('background-music');
     const energyModal = document.getElementById('energy-modal');
     const watchAdBtn = document.getElementById('watch-ad-btn');
-    const buyEnergyBtn = document.getElementById('buy-energy-btn');
+    const buyEnergyBtn = document = document.getElementById('buy-energy-btn');
     const refillBtn = document.getElementById('refill-btn');
     const inviteBtn = document.getElementById('invite-btn');
 
@@ -362,6 +384,14 @@
             backgroundMusic.play();
             isPlaying = true;
             musicBtn.textContent = "Hentikan Musik";
+        }
+    };
+    
+    // Dengarkan perubahan pada dropdown menu
+    musicSelector.onchange = () => {
+        backgroundMusic.src = musicSelector.value;
+        if (isPlaying) {
+            backgroundMusic.play(); // Putar musik baru jika sedang aktif
         }
     };
 
