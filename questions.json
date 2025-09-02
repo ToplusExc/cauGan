@@ -1,0 +1,102 @@
+[
+  {
+    "question": "Siapa pendiri Bitcoin?",
+    "options": ["Vitalik Buterin", "Satoshi Nakamoto", "Elon Musk"],
+    "answer": "Satoshi Nakamoto"
+  },
+  {
+    "question": "Apa nama mata uang kripto yang diluncurkan oleh Facebook (sekarang Meta)?",
+    "options": ["Libra", "Diem", "MetaCoin"],
+    "answer": "Libra"
+  },
+  {
+    "question": "Blockchain apa yang paling terkenal dengan smart contract?",
+    "options": ["Bitcoin", "Ethereum", "Ripple"],
+    "answer": "Ethereum"
+  },
+  {
+    "question": "Apa singkatan dari NFT?",
+    "options": ["Non-Fungible Token", "New Financial Technology", "Network File Transfer"],
+    "answer": "Non-Fungible Token"
+  },
+  {
+    "question": "Apa nama token asli dari Binance Smart Chain?",
+    "options": ["BNB", "BTC", "ETH"],
+    "answer": "BNB"
+  },
+  {
+    "question": "Tahun berapa Ethereum diluncurkan?",
+    "options": ["2013", "2015", "2017"],
+    "answer": "2015"
+  },
+  {
+    "question": "Apa fungsi utama dari dompet kripto?",
+    "options": ["Menyimpan token", "Menambang koin", "Mengatur harga"],
+    "answer": "Menyimpan token"
+  },
+  {
+    "question": "Istilah 'HODL' berasal dari kesalahan ketik kata apa?",
+    "options": ["Hold", "Hope", "Hash"],
+    "answer": "Hold"
+  },
+  {
+    "question": "Apa nama koin yang memiliki gambar anjing Shiba Inu?",
+    "options": ["Litecoin", "Dogecoin", "Cardano"],
+    "answer": "Dogecoin"
+  },
+  {
+    "question": "Apa nama koin yang dikembangkan untuk transaksi cepat dan murah?",
+    "options": ["Solana", "XRP", "Polkadot"],
+    "answer": "Solana"
+  },
+  {
+    "question": "Apa itu 'gas fee' dalam transaksi blockchain?",
+    "options": ["Biaya untuk menonton iklan", "Biaya transaksi di jaringan blockchain", "Biaya internet bulanan"],
+    "answer": "Biaya transaksi di jaringan blockchain"
+  },
+  {
+    "question": "Apa nama proses verifikasi transaksi Bitcoin?",
+    "options": ["Mining", "Staking", "Swapping"],
+    "answer": "Mining"
+  },
+  {
+    "question": "Apa singkatan dari DeFi?",
+    "options": ["Decentralized Finance", "Digital Fund", "Direct Fiat"],
+    "answer": "Decentralized Finance"
+  },
+  {
+    "question": "Apa yang dimaksud dengan 'stablecoin'?",
+    "options": ["Koin dengan harga stabil", "Koin yang tidak bisa ditukar", "Koin untuk transaksi kecil"],
+    "answer": "Koin dengan harga stabil"
+  },
+  {
+    "question": "Protokol apa yang digunakan untuk transaksi NFT?",
+    "options": ["ERC-20", "ERC-721", "BEP-20"],
+    "answer": "ERC-721"
+  },
+  {
+    "question": "Apa itu 'private key'?",
+    "options": ["Kata sandi email", "Kunci rahasia untuk mengakses aset kripto", "Kode QR dompet"],
+    "answer": "Kunci rahasia untuk mengakses aset kripto"
+  },
+  {
+    "question": "Apa itu 'bull run' di pasar kripto?",
+    "options": ["Harga naik drastis", "Harga turun drastis", "Harga stabil"],
+    "answer": "Harga naik drastis"
+  },
+  {
+    "question": "Apa itu 'staking'?",
+    "options": ["Mengunci aset untuk mendapatkan hadiah", "Menjual aset kripto", "Mengubah aset menjadi fiat"],
+    "answer": "Mengunci aset untuk mendapatkan hadiah"
+  },
+  {
+    "question": "Siapa yang menciptakan Ethereum?",
+    "options": ["Satoshi Nakamoto", "Vitalik Buterin", "Gavin Wood"],
+    "answer": "Vitalik Buterin"
+  },
+  {
+    "question": "Apa nama aset kripto dengan kapitalisasi pasar terbesar kedua setelah Bitcoin?",
+    "options": ["Tether", "BNB", "Ethereum"],
+    "answer": "Ethereum"
+  }
+]
