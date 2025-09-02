@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App (Profesional)</title>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2705194864398598"
+     crossorigin="anonymous"></script>
+
+    <style>
+        /* Gaya dasar untuk palet warna profesional */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --text-color: #ecf0f1;
+            --accent-color: #f1c40f;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--secondary-color);
+            margin: 0;
+            color: var(--text-color);
+        }
+        .container {
+            background-color: #34495e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        #question {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .option-btn:hover {
+            background-color: #2980b9;
+        }
+        .option-btn.correct {
+            background-color: var(--success-color);
+        }
+        .option-btn.incorrect {
+            background-color: var(--error-color);
+        }
+        #result-section {
+            display: none;
+            margin-top: 20px;
+        }
+        #score-text {
+            font-size: 1.5rem;
+        }
+        .monetization-buttons {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .monetization-btn {
+            background-color: var(--accent-color);
+            color: var(--secondary-color);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .monetization-btn:hover {
+            background-color: #e67e22;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #34495e;
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .modal-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .modal-btn {
+            background-color: var(--accent-color);
+            color: var(--secondary-color);
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .modal-btn:hover {
+            background-color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+
+<audio id="background-music" src="background_music.mp3" loop></audio>
+    
+<div class="container">
+    <h1>Kuis Seru</h1>
+    <div class="stats">
+        <p>Poin: <span id="score-display">0</span></p>
+        <p>Energi: <span id="energy-display">10</span></p>
+        <p>Peringkat: <span id="rank-display">Bronze</span></p>
+    </div>
+    
+    <div id="quiz-area">
+        <p id="question">Pertanyaan akan muncul di sini.</p>
+        <div id="options-container" class="options-container">
+            </div>
+        <div class="monetization-buttons">
+            <button id="refill-btn" class="monetization-btn">Refill Energi Gratis</button>
+            <button id="music-btn" class="monetization-btn">Putar/Hentikan Musik</button>
+            <button id="invite-btn" class="monetization-btn">Ajak Teman</button>
+            <a href="mailto:emailanda@gmail.com?subject=Donasi untuk Kuis&body=Halo, saya ingin berdonasi." class="monetization-btn" style="text-decoration: none;">Donasi via Email</a>
+        </div>
+    </div>
+    
+    <div id="result-section" style="display: none;">
+        <p id="score-text"></p>
+        <p>Dapatkan lebih banyak energi untuk bermain!</p>
+        <button id="play-again-btn" class="monetization-btn" onclick="startQuiz()">Main Lagi</button>
+    </div>
+</div>
+
+<div id="energy-modal" class="modal">
+    <div class="modal-content">
+        <h2>Energi Kamu Habis!</h2>
+        <p>Dapatkan energi tambahan untuk terus bermain.</p>
+        <div class="modal-options">
+            <button id="watch-ad-btn" class="modal-btn">Tonton Iklan (+5 Energi)</button>
+            <button id="buy-energy-btn" class="modal-btn">Beli Energi</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const quizArea = document.getElementById('quiz-area');
+    const questionElement = document.getElementById('question');
+    const optionsContainer = document.getElementById('options-container');
+    const resultSection = document.getElementById('result-section');
+    const scoreDisplay = document.getElementById('score-display');
+    const energyDisplay = document.getElementById('energy-display');
+    const rankDisplay = document.getElementById('rank-display');
+    const musicBtn = document.getElementById('music-btn');
+    const backgroundMusic = document.getElementById('background-music');
+    const energyModal = document.getElementById('energy-modal');
+    const watchAdBtn = document.getElementById('watch-ad-btn');
+    const buyEnergyBtn = document.getElementById('buy-energy-btn');
+    const refillBtn = document.getElementById('refill-btn');
+    const inviteBtn = document.getElementById('invite-btn');
+
+    const correctSound = new Audio('correct_sound.mp3');
+    const wrongSound = new Audio('wrong_sound.mp3');
+
+    let quizData = [];
+    let currentQuizIndex = 0;
+    let score = 0;
+    let energy = 10;
+    let currentRank = "Bronze";
+    let isPlaying = false;
+
+    const ranks = [
+        { name: "Bronze", threshold: 0 },
+        { name: "Silver", threshold: 501 },
+        { name: "Gold", threshold: 1001 },
+        { name: "Platinum", threshold: 2001 },
+        { name: "Mythic", threshold: 5001 },
+        { name: "Grandmaster", threshold: 10001 },
+        { name: "Profesional", threshold: 25001 }
+    ];
+
+    async function loadQuizData() {
+        try {
+            const response = await fetch('questions.json');
+            if (!response.ok) {
+                throw new Error('Gagal memuat pertanyaan. Cek nama file.');
+            }
+            quizData = await response.json();
+            console.log('Pertanyaan berhasil dimuat:', quizData.length);
+            startQuiz();
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Gagal memuat pertanyaan dari server. Silakan coba lagi nanti.');
+        }
+    }
+
+    function startQuiz() {
+        if (energy > 0) {
+            quizArea.style.display = 'block';
+            resultSection.style.display = 'none';
+            energyModal.style.display = 'none';
+            showQuestion();
+        } else {
+            energyModal.style.display = 'flex';
+        }
+    }
+
+    function showQuestion() {
+        if (quizData.length === 0) return;
+        const currentQuiz = quizData[currentQuizIndex];
+        questionElement.textContent = currentQuiz.question;
+        optionsContainer.innerHTML = '';
+        currentQuiz.options.forEach(option => {
+            const button = document.createElement('button');
+            button.classList.add('option-btn');
+            button.textContent = option;
+            button.onclick = () => checkAnswer(option);
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    function checkAnswer(selectedOption) {
+        const currentQuiz = quizData[currentQuizIndex];
+        const buttons = document.querySelectorAll('.option-btn');
+        
+        if (selectedOption !== currentQuiz.answer) {
+            energy--;
+            energyDisplay.textContent = energy;
+            wrongSound.play();
+        } else {
+            score += 10;
+            scoreDisplay.textContent = score;
+            correctSound.play();
+            checkRankUpgrade();
+        }
+
+        buttons.forEach(btn => {
+            btn.disabled = true;
+            if (btn.textContent === currentQuiz.answer) {
+                btn.classList.add('correct');
+            } else if (btn.textContent === selectedOption) {
+                btn.classList.add('incorrect');
+            }
+        });
+
+        setTimeout(() => {
+            currentQuizIndex++;
+            if (currentQuizIndex < quizData.length && energy > 0) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }, 1000);
+    }
+    
+    function getRankByScore(score) {
+        let newRank = ranks[0].name;
+        for (let i = 0; i < ranks.length; i++) {
+            if (score >= ranks[i].threshold) {
+                newRank = ranks[i].name;
+            } else {
+                break;
+            }
+        }
+        return newRank;
+    }
+
+    function checkRankUpgrade() {
+        const newRank = getRankByScore(score);
+        if (newRank !== currentRank) {
+            alert(`Selamat! Anda naik ke peringkat ${newRank}!`);
+            currentRank = newRank;
+            rankDisplay.textContent = currentRank;
+        } else {
+            rankDisplay.textContent = currentRank;
+        }
+    }
+
+    function showResult() {
+        quizArea.style.display = 'none';
+        resultSection.style.display = 'block';
+        if (energy > 0) {
+            document.getElementById('score-text').textContent = `Kuis Selesai! Skor akhirmu: ${score}`;
+        } else {
+            document.getElementById('score-text').textContent = `Game Over! Skor akhirmu: ${score}`;
+        }
+    }
+
+    // Fungsi untuk tombol beli energi (placeholder)
+    function buyEnergy() {
+        alert("Ini adalah placeholder. Hubungkan dengan API pembayaran.");
+    }
+    
+    // Fungsi untuk tombol tonton iklan (placeholder)
+    watchAdBtn.onclick = () => {
+        alert("Ini adalah placeholder untuk iklan. Iklan video akan muncul di sini.");
+        energy += 5;
+        energyDisplay.textContent = energy;
+        energyModal.style.display = 'none';
+        startQuiz();
+    };
+
+    buyEnergyBtn.onclick = () => {
+        alert("Ini adalah placeholder untuk pembayaran.");
+        energyModal.style.display = 'none';
+        startQuiz();
+    };
+
+    // Fungsi untuk tombol musik
+    musicBtn.onclick = () => {
+        if (isPlaying) {
+            backgroundMusic.pause();
+            isPlaying = false;
+            musicBtn.textContent = "Putar Musik";
+        } else {
+            backgroundMusic.play();
+            isPlaying = true;
+            musicBtn.textContent = "Hentikan Musik";
+        }
+    };
+
+    // Fungsi untuk tombol refill energi
+    function checkRefillStatus() {
+        const lastRefill = localStorage.getItem('lastRefillTime');
+        const now = new Date().getTime();
+        const oneDay = 24 * 60 * 60 * 1000;
+        if (!lastRefill || (now - lastRefill > oneDay)) {
+            refillBtn.disabled = false;
+            refillBtn.textContent = "Refill Energi Gratis";
+        } else {
+            refillBtn.disabled = true;
+            refillBtn.textContent = "Refill tersedia dalam 24 jam";
+        }
+    }
+    refillBtn.onclick = () => {
+        if (!refillBtn.disabled) {
+            energy = 10;
+            energyDisplay.textContent = energy;
+            localStorage.setItem('lastRefillTime', new Date().getTime());
+            checkRefillStatus();
+            alert("Energi berhasil diisi ulang!");
+        }
+    };
+    checkRefillStatus();
+
+    // Fungsi untuk tombol ajak teman
+    inviteBtn.onclick = async () => {
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            alert("Link website berhasil disalin! Bagikan ke temanmu.");
+        } catch (err) {
+            console.error('Gagal menyalin link:', err);
+            alert("Gagal menyalin link. Silakan salin manual.");
+        }
+    };
+    
+    // Memuat data kuis saat halaman dibuka
+    loadQuizData();
+</script>
+
+</body>
+</html>
